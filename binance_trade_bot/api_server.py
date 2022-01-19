@@ -10,8 +10,8 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from .config import Config
-from .database import Database
 from .logger import Logger
+from .database import Database
 from .models import Coin, CoinValue, CurrentCoin, Pair, ScoutHistory, Trade
 
 app = Flask(__name__)
