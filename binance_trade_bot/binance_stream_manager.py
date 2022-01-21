@@ -4,12 +4,12 @@ import time
 from contextlib import contextmanager
 from typing import Dict, Set, Tuple
 
+from .config import Config
+from .logger import Logger
+
 import binance.client
 from binance.exceptions import BinanceAPIException, BinanceRequestException
 from unicorn_binance_websocket_api import BinanceWebSocketApiManager
-
-from .config import Config
-from .logger import Logger
 
 
 class BinanceOrder:  # pylint: disable=too-few-public-methods
@@ -27,18 +27,6 @@ class BinanceOrder:  # pylint: disable=too-few-public-methods
     def __repr__(self):
         return f"<BinanceOrder {self.event}>"
 
-
-class BinanceCache:  # pylint: disable=too-few-public-methods
-    ticker_values: Dict[str, float] = {}
-    _balances: Dict[str, float] = {}
-    _balances_mutex: threading.Lock = threading.Lock()
-    non_existent_tickers: Set[str] = set()
-    orders: Dict[str, BinanceOrder] = {}
-
-    @contextmanager
-    def open_balances(self):
-        with self._balances_mutex:
-            yield self._balances
 
 
 class OrderGuard:
@@ -63,6 +51,18 @@ class OrderGuard:
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.pending_orders.remove(self.tag)
+
+class BinanceCache:  # pylint: disable=too-few-public-methods
+    ticker_values: Dict[str, float] = {}
+    _balances: Dict[str, float] = {}
+    _balances_mutex: threading.Lock = threading.Lock()
+    non_existent_tickers: Set[str] = set()
+    orders: Dict[str, BinanceOrder] = {}
+
+    @contextmanager
+    def open_balances(self):
+        with self._balances_mutex:
+            yield self._balances
 
 
 class BinanceStreamManager:

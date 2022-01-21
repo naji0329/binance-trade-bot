@@ -1,13 +1,13 @@
 #!python3
 import time
 
+from .logger import Logger
+
 from .binance_api_manager import BinanceAPIManager
 from .config import Config
 from .database import Database
 from .scheduler import SafeScheduler
 from .strategies import get_strategy
-
-from .logger import Logger
 
 def main():
     logger = Logger()

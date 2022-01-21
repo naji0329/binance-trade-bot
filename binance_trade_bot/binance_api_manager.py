@@ -3,15 +3,15 @@ import time
 import traceback
 from typing import Dict, Optional
 
-from binance.client import Client
-from binance.exceptions import BinanceAPIException
-from cachetools import TTLCache, cached
-
 from .binance_stream_manager import BinanceCache, BinanceOrder, BinanceStreamManager, OrderGuard
 from .config import Config
 from .database import Database
 from .logger import Logger
 from .models import Coin
+
+from binance.client import Client
+from binance.exceptions import BinanceAPIException
+from cachetools import TTLCache, cached
 
 
 class BinanceAPIManager:
