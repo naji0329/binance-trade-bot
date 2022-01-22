@@ -2,8 +2,10 @@
 # pylint: skip-file
 import pathlib
 
+
 REPO_ROOT = pathlib.Path(__name__).resolve().parent
 SUPPORTED_COIN_LIST = REPO_ROOT / "supported_coin_list"
+
 
 
 def sort():

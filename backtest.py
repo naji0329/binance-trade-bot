@@ -1,6 +1,7 @@
-from datetime import datetime
 
 from binance_trade_bot import backtest
+from datetime import datetime
+
 
 if __name__ == "__main__":
     history = []
